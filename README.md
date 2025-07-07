@@ -54,9 +54,11 @@ The application is perfect for quickly checking weather conditions and serves as
 ```
 Final-project/
 │
-├── Backend/
-│   ├── server.py              # Main Flask application server
-│   └── weather.py             # Weather API integration module
+├── .git/                      # Git repository metadata
+├── .gitignore                 # Git ignore rules
+├── .env                       # Environment variables (API keys)
+├── .venv/                     # Virtual environment directory
+├── .vscode/                   # VS Code configuration
 │
 ├── static/
 │   └── styles/
@@ -70,14 +72,19 @@ Final-project/
 ├── __pycache__/               # Python cache files
 │   └── weather.cpython-312.pyc
 │
+├── server.py                  # Main Flask application server
+├── weather.py                 # Weather API integration module
 ├── requirements.txt           # Python dependencies
 └── README.md                  # Project documentation
 ```
 
 ### File Descriptions
 
-- **`Backend/server.py`**: Main Flask application with route handlers for home page, weather data retrieval, and error handling
-- **`Backend/weather.py`**: Contains the `get_current_weather()` function that interfaces with the OpenWeatherMap API
+- **`server.py`**: Main Flask application with route handlers for home page, weather data retrieval, and error handling
+- **`weather.py`**: Contains the `get_current_weather()` function that interfaces with the OpenWeatherMap API
+- **`.env`**: Environment variables file containing API keys (not tracked by Git)
+- **`.gitignore`**: Specifies files and directories to be ignored by Git
+- **`.venv/`**: Virtual environment directory containing Python packages
 - **`static/styles/style.css`**: CSS styling for the entire application with dark theme and responsive design
 - **`templates/index.html`**: Landing page with city input form
 - **`templates/weather.html`**: Displays weather information for the requested city
@@ -140,14 +147,12 @@ pip install -r requirements.txt
 
 #### Development Mode
 ```bash
-cd Backend
 python server.py
 ```
 
 #### Production Mode (using Waitress)
 The application is configured to run with Waitress server by default:
 ```bash
-cd Backend
 python server.py
 ```
 

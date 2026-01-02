@@ -5,118 +5,102 @@ A simple yet elegant web application built with Flask that provides real-time we
 ## 📖 Project Overview
 
 This weather application allows users to:
-- **Search for current weather conditions** by entering any city name
-- **View detailed weather information** including temperature, weather description, and "feels like" temperature
-- **Experience a clean, responsive user interface** with dark theme styling
-- **Handle invalid city names** gracefully with proper error messaging
+- **Search for current weather conditions** by entering any city name.
+- **View detailed weather information** including temperature, weather description, and "feels like" temperature.
+- **Experience a clean, responsive user interface** with dark theme styling.
+- **Handle invalid city names** gracefully with proper error messaging.
 
 The application is perfect for quickly checking weather conditions and serves as an excellent example of integrating external APIs with a Flask web application.
 
-## ✨ Key Features
+## 📐 System Design
 
-- 🌍 **Global Weather Data**: Get weather information for cities worldwide
-- 🎨 **Modern UI**: Clean, dark-themed interface with responsive design
-- 📱 **Mobile Friendly**: Responsive design that works on all devices
-- ⚡ **Fast & Lightweight**: Minimal dependencies for quick loading
-- 🛡️ **Error Handling**: Graceful handling of invalid city names
-- 🌡️ **Metric System**: Temperature displayed in Celsius with "feels like" information
+The application follows a standard client-server architecture using Flask as the backend framework.
 
-## 🛠️ Technologies & Dependencies
-
-### Backend Technologies
-- **Python 3.x** - Programming language
-- **Flask 3.1.1** - Lightweight web framework
-- **Waitress 3.0.2** - Production-ready WSGI server
-- **Requests 2.32.4** - HTTP library for API calls
-- **python-dotenv 1.1.1** - Environment variable management
-
-### Frontend Technologies
-- **HTML5** - Markup language
-- **CSS3** - Styling with modern flexbox layout
-- **Jinja2 3.1.6** - Template engine (comes with Flask)
-
-### External API
-- **OpenWeatherMap API** - Weather data provider
-
-### Additional Dependencies
-- **blinker 1.9.0** - Signal support for Flask
-- **certifi 2025.6.15** - Certificate validation
-- **charset-normalizer 3.4.2** - Character encoding detection
-- **click 8.2.1** - Command line interface utilities
-- **idna 3.10** - Internationalized domain names
-- **itsdangerous 2.2.0** - Data signing utilities
-- **MarkupSafe 3.0.2** - Template string safety
-- **urllib3 2.5.0** - HTTP client
-- **Werkzeug 3.1.3** - WSGI utilities
+```mermaid
+graph TD
+    User[User] -->|Enter City| Browser[Web Browser]
+    Browser -->|HTTP GET /weather?city=Name| Server["Flask Server (server.py)"]
+    Server -->|Call get_current_weather| WeatherMod["Weather Module (weather.py)"]
+    WeatherMod -->|HTTP Request| API[OpenWeatherMap API]
+    API -->|JSON Response| WeatherMod
+    WeatherMod -->|Dict Data| Server
+    Server -->|Render Template| Templates[HTML Templates]
+    Templates -->|HTML Response| Browser
+    Browser -->|Display Weather| User
+```
 
 ## 📁 Project Structure
 
 ```
 Final-project/
-│
-├── .git/                      # Git repository metadata
+├── server.py                  # Main Flask application entry point
+├── weather.py                 # Logic for fetching data from OpenWeatherMap API
+├── requirements.txt           # Python dependencies
+├── .env                       # Environment variables (API Key) - Not in git
 ├── .gitignore                 # Git ignore rules
-├── .env                       # Environment variables (API keys)
-├── .venv/                     # Virtual environment directory
-├── .vscode/                   # VS Code configuration
-│
+├── README.md                  # Project documentation
 ├── static/
 │   └── styles/
-│       └── style.css          # Application styling
-│
-├── templates/
-│   ├── index.html             # Home page template
-│   ├── weather.html           # Weather results template
-│   └── city-not-found.html    # Error page template
-│
-├── __pycache__/               # Python cache files
-│   └── weather.cpython-312.pyc
-│
-├── server.py                  # Main Flask application server
-├── weather.py                 # Weather API integration module
-├── requirements.txt           # Python dependencies
-└── README.md                  # Project documentation
+│       └── style.css          # CSS styles for the application
+└── templates/
+    ├── index.html             # Homepage template with search form
+    ├── weather.html           # Result page displaying weather data
+    └── city-not-found.html    # Error page for invalid city names
 ```
 
-### File Descriptions
+## ✨ Key Features
 
-- **`server.py`**: Main Flask application with route handlers for home page, weather data retrieval, and error handling
-- **`weather.py`**: Contains the `get_current_weather()` function that interfaces with the OpenWeatherMap API
-- **`.env`**: Environment variables file containing API keys (not tracked by Git)
-- **`.gitignore`**: Specifies files and directories to be ignored by Git
-- **`.venv/`**: Virtual environment directory containing Python packages
-- **`static/styles/style.css`**: CSS styling for the entire application with dark theme and responsive design
-- **`templates/index.html`**: Landing page with city input form
-- **`templates/weather.html`**: Displays weather information for the requested city
-- **`templates/city-not-found.html`**: Error page shown when an invalid city is entered
-- **`requirements.txt`**: List of all Python package dependencies
+- 🌍 **Global Weather Data**: Get weather information for cities worldwide.
+- 🎨 **Modern UI**: Clean, dark-themed interface with responsive design.
+- 📱 **Mobile Friendly**: Responsive design that works on all devices.
+- ⚡ **Fast & Lightweight**: Minimal dependencies for quick loading.
+- 🛡️ **Error Handling**: Graceful handling of invalid city names.
+- 🌡️ **Metric System**: Temperature displayed in Celsius with "feels like" information.
+
+## 🛠️ Technologies & Dependencies
+
+### Backend
+- **Python 3.x**: Core programming language.
+- **Flask**: Micro web framework for serving the application.
+- **Waitress**: Production-quality WSGI server.
+- **Requests**: For making HTTP requests to the OpenWeatherMap API.
+- **python-dotenv**: For managing environment variables.
+
+### Frontend
+- **HTML5**: Structure of the web pages.
+- **CSS3**: Styling and layout (Flexbox).
+- **Jinja2**: Template engine for dynamic content rendering.
+
+### External Services
+- **OpenWeatherMap API**: Source of weather data.
 
 ## 🚀 Installation & Setup
 
 ### Prerequisites
 
-- **Python 3.7+** installed on your system
-- **Git** for cloning the repository
-- **OpenWeatherMap API Key** (free registration required)
+- **Python 3.7+** installed on your system.
+- **Git** for cloning the repository.
+- **OpenWeatherMap API Key** (free registration required).
 
 ### Step 1: Clone the Repository
 
 ```bash
 git clone https://github.com/Abdelrahman-Yasser-Zakaria/weather-app.git
-cd Final-project
+cd weather-app
+# If the project is in a subdirectory like 'Final-project', cd into it
 ```
 
 ### Step 2: Set Up Virtual Environment (Recommended)
 
 ```bash
 # Create virtual environment
-python -m venv weather_app_env
+python -m venv .venv
 
 # Activate virtual environment
 # On Linux/Mac:
-source weather_app_env/bin/activate
+source .venv/bin/activate
 # On Windows:
-weather_app_env\Scripts\activate
+.venv\Scripts\activate
 ```
 
 ### Step 3: Install Dependencies
@@ -125,105 +109,37 @@ weather_app_env\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Step 4: Set Up Environment Variables
+### Step 4: Configure Environment Variables
 
-1. **Get an API Key**:
-   - Visit [OpenWeatherMap](https://openweathermap.org/api)
-   - Sign up for a free account
-   - Generate an API key
+1.  **Get an API Key**:
+    -   Visit [OpenWeatherMap](https://openweathermap.org/api).
+    -   Sign up and generate a free API key.
 
-2. **Create Environment File**:
-   ```bash
-   # Create .env file in the project root
-   touch .env
-   ```
+2.  **Create `.env` file**:
+    Create a file named `.env` in the root directory of the project.
 
-3. **Add Your API Key**:
-   ```env
-   OpenWeather_API_KEY=your_api_key_here
-   ```
+3.  **Add your API Key**:
+    Add the following line to the `.env` file:
+    ```env
+    OpenWeather_API_KEY=your_actual_api_key_here
+    ```
 
 ### Step 5: Run the Application
 
-#### Development Mode
+#### Development / Production (via Waitress)
+The project includes a `server.py` that uses `waitress` for serving, which is suitable for production-like environments or local testing.
+
 ```bash
 python server.py
 ```
 
-#### Production Mode (using Waitress)
-The application is configured to run with Waitress server by default:
-```bash
-python server.py
-```
+The application will be accessible at: **http://localhost:8000**
 
-The application will be available at: **http://localhost:8000**
+## 🎯 Usage
 
-## 🎯 Usage Instructions
+1.  Open your browser and go to `http://localhost:8000`.
+2.  Enter a city name (e.g., "Cairo", "London", "New York") in the input field.
+3.  Press Enter or click "Submit".
+4.  View the current weather, temperature, and "feels like" temperature.
+5.  If the city is not found, you will be redirected to an error page where you can try again.
 
-1. **Access the Application**: Open your web browser and navigate to `http://localhost:8000`
-
-2. **Search for Weather**: 
-   - Enter any city name in the search box
-   - Click "Submit" or press Enter
-
-3. **View Results**:
-   - **Valid city**: See current temperature, weather description, and "feels like" temperature
-   - **Invalid city**: Receive a "City not found" message with option to try again
-
-4. **Search Again**: Use the search form on any page to look up weather for different cities
-
-## 🔧 Configuration
-
-### Default Settings
-- **Server Host**: `0.0.0.0` (accessible from any network interface)
-- **Server Port**: `8000`
-- **Default City**: `Cairo` (used when no city is specified)
-- **Temperature Units**: Metric (Celsius)
-
-### Customization Options
-- **Change default city**: Modify the default value in `server.py` and `weather.py`
-- **Change temperature units**: Update the `units` parameter in the API URL (options: `metric`, `imperial`, `kelvin`)
-- **Modify styling**: Edit `static/styles/style.css` to customize the appearance
-- **Change port**: Update the `port` parameter in the `serve()` function
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **"ModuleNotFoundError"**: Ensure all dependencies are installed with `pip install -r requirements.txt`
-
-2. **API Key Errors**: 
-   - Verify your API key is correctly set in the `.env` file
-   - Ensure your OpenWeatherMap API key is active (can take a few minutes after registration)
-
-3. **Port Already in Use**: 
-   - Change the port number in `server.py`
-   - Or kill the process using the port: `sudo lsof -t -i tcp:8000 | xargs kill -9`
-
-4. **City Not Found**: 
-   - Check spelling of city name
-   - Try using city name with country code (e.g., "London, UK")
-
-## 🌟 Future Enhancements
-
-- 📅 5-day weather forecast
-- 🗺️ Interactive weather maps
-- 📊 Weather charts and graphs
-- 🌓 Light/dark theme toggle
-- 📱 Progressive Web App (PWA) features
-- 🔄 Auto-refresh functionality
-- 📍 Geolocation-based weather detection
-
----
